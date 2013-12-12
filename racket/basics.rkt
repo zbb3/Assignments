@@ -2,18 +2,21 @@
   
 ;;; Return the sum of all numbers up to and including n for 0 <= n.
 (define (sum-to-n n) 
-  (cond (zero? n)
+  (cond ((zero? n)
     0)
   (else
-    (+ n (sum-to-n (- n 1)))))
+    (+ n (sum-to-n (- n 1))))))
 
 ;;; Calculate n choose r, for 0 <= n, 0 <= r <= n
 (define (combination n r) 
   (cond
     ((zero? r) 1)
-  ((= n r) 1))
+  ((= n r) 1)
   (else
-    (+ (combination (- n 1) (- r 1)))))
+    (+ (combination (- n 1) (- r 1))
+      (combination (- n 1) r)))))
+
+
 ;;; Return the sum of all numbers in a list
 (define (sum lst) 
   (cond
@@ -46,7 +49,7 @@
   (cond
     ((null? lst) #f)
     ((equal? a (car lst)) #t)
-    ((and (list ? (car list))
+    ((and (list? (car lst))
       (member?* a (car lst))) #t)
     (else
       (member?* a (cdr lst)))))
@@ -71,14 +74,15 @@
   ((null? (cdr lst)) #f)
   ((equal? (car lst)(car (cdr lst))) #t)
   (else
-    (two-in-a-row? lst))))
+    (two-in-a-row? (cdr lst)))))
 
 ;;; Return the nth element of a list
 (define (nth lst n)
   (cond
     ((zero? n) (car lst))
     (else
-      (nth (cdr lst) (-n 1)))))
+      (nth (cdr lst) (- n 1)))))
+
 
 ;;; Return a list containing the unique elements of lst
 (define (dedup lst)
@@ -95,10 +99,9 @@
     (cond
       ((null? lst) rev)
       (else
-        (rev-h(cdr lst) (cons (car lst) rev)
+        (rev-h(cdr lst) (cons (car lst) rev)))))
     (rev-h lst '()))
-
-  ((null? lst) null)
+   
   
   
 
